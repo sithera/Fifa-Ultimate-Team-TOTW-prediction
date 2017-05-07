@@ -54,7 +54,8 @@ class DBHandler(object):
         cur = self.conn.cursor()
         cur.execute('''SELECT * FROM player_statistics''')
 
-        print cur.fetchone()
-
+        # print cur.fetchone()
+        output = ''.join(str(cur.fetchone()))
+        print output
         cur.close()
-
+        return output
