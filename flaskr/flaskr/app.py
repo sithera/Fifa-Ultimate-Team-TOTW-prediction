@@ -1,11 +1,14 @@
 from flask import Flask
-from data.main import players
+
+from data.DBHandler import DBHandler
+
 app = Flask(__name__)
 
 
 @app.route("/")
 def main():
-    output = players()
+    db = DBHandler()
+    output = db.get_all_players()
     return output
 
 if __name__ == "__main__":
