@@ -54,8 +54,13 @@ class DBHandler(object):
         cur = self.conn.cursor()
         cur.execute('''SELECT * FROM player_statistics''')
 
-        # print cur.fetchone()
         output = ''.join(str(cur.fetchone()))
         print output
         cur.close()
         return output
+
+    def check_player_name(self, name):
+        cur = self.conn.cursor()
+        cur.execute('''SELECT * FROM player WHERE player_name LIKE ?''', (name,))
+        if cur.fetchone() is None:
+            print name
