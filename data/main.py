@@ -18,12 +18,13 @@ if __name__ == "__main__":
 
     with open('team_of_the_week.json') as json_data:
         data = json.load(json_data)
-        for fixture_data in data['data']:
-            for player in fixture_data['players'][0]['GK']:
-                handler.check_player_name(player)
-            for player in fixture_data['players'][0]['DEF']:
-                handler.check_player_name(player)
-            for player in fixture_data['players'][0]['MID']:
-                handler.check_player_name(player)
-            for player in fixture_data['players'][0]['ATT']:
-                handler.check_player_name(player)
+        for year in data:
+            for fixture_data in year['data']:
+                for player in fixture_data['players'][0]['GK']:
+                    handler.check_player_name(player)
+                for player in fixture_data['players'][0]['DEF']:
+                    handler.check_player_name(player)
+                for player in fixture_data['players'][0]['MID']:
+                    handler.check_player_name(player)
+                for player in fixture_data['players'][0]['ATT']:
+                    handler.check_player_name(player)

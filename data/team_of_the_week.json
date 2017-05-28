@@ -1,5 +1,6 @@
-{
-  "year": "2015",
+[
+  {
+  "year": "2015/2016",
   "data": [
     {
       "fixture": 1,
@@ -408,5 +409,429 @@
         }
       ]
     }
-  ]
-}
+    ]
+  },
+  {
+    "year": "2016/2017",
+    "data": [
+      {
+        "fixture": 1,
+        "players": [
+          {
+            "GK": ["Ben Foster"],
+            "DEF": ["Kyle Naughton", "Curtis Davies", "George Friend"],
+            "MID": ["Etienne Capoue", "Leroy Fer ", "Sadio Mane", "Robert Snodgrass", "Gaston Ramirez", "Philippe Coutinho"],
+            "ATT": ["Diego Costa"]
+          }
+        ]
+      },
+      {
+        "fixture": 2,
+        "players": [
+          {
+            "GK": ["Tom Heaton "],
+            "DEF": ["Jake Livermore", "Curtis Davies", "Luke Shaw"],
+            "MID": ["Paul Pogba", "Victor Wanyama", "Cristhian Stuani", "Shaun Richard Maloney"],
+            "ATT": ["Sergio Aguero", "Zlatan Ibrahimovic", "Andre Gray"]
+          }
+        ]
+      },
+      {
+        "fixture": 3,
+        "players": [
+          {
+            "GK": ["Eldin Jakupovic"],
+            "DEF": ["Scott Dann", "Eric Bailly", "Curtis Davies", "Danny Rose"],
+            "MID": ["Fernandinho", "Raheem Sterling", "Jason Puncheon", "Wayne Rooney", "Eden Hazard"],
+            "ATT": ["Alexis Sanchez"]
+          }
+        ]
+      },
+      {
+        "fixture": 4,
+        "players": [
+          {
+            "GK": ["Lukasz Fabianski"],
+            "DEF": ["Kyle Walker", "Nicolas Otamendi", "Curtis Davies", "José Holebas"],
+            "MID": ["Sadio Mane", "Kevin De Bruyne", "Christian Eriksen", "Son Heung-Min"],
+            "ATT": ["Roberto Firmino", "Romelu Lukaku"]
+          }
+        ]
+      },
+      {
+        "fixture": 5,
+        "players": [
+          {
+            "GK": ["Jordan Pickford"],
+            "DEF": ["Seamus Coleman", "Dejan Lovren", "Christian Fuchs"],
+            "MID": ["Jordan Henderson", "Nacer Chadli", "Kevin De Bruyne", "Andros Townsend"],
+            "ATT": ["Raheem Sterling", "Dimitri Payet", "Islam Slimani"]
+          }
+        ]
+      },
+      {
+        "fixture": 6,
+        "players": [
+          {
+            "GK": ["Claudio Bravo"],
+            "DEF": ["Hector Bellerin", "Daley Blind", "James Milner"],
+            "MID": ["Paul Pogba", "Adam Lallana", "Philippe Coutinho", "Juan Mata", "Mesut Ozil", "Son Heung-Min"],
+            "ATT": ["Alexis Sanchez"]
+          }
+        ]
+      },
+      {
+        "fixture": 7,
+        "players": [
+          {
+            "GK": ["Lee Grant"],
+            "DEF": ["Kyle Walker", "Shkodran Mustafi", "Laurent Koscielny", "Winston Reid", "James Milner"],
+            "MID": ["Willian", "Dele Alli", "Dimitri Payet"],
+            "ATT": ["Diego Costa", "Troy Deeney"]
+          }
+        ]
+      },
+      {
+        "fixture": 8,
+        "players": [
+          {
+            "GK": ["Maarten Stekelenburg"],
+            "DEF": ["Victor Moses", "Steve Cook", "Charlie Daniels"],
+            "MID": ["N Golo Kante", "Ander Herrera", "Joe Allen"],
+            "ATT": ["Theo Walcott", "Callum Wilson", "Junior Stanislas", "Charlie Austin "]
+          }
+        ]
+      },
+      {
+        "fixture": 9,
+        "players": [
+          {
+            "GK": ["Petr Cech"],
+            "DEF": ["Michael Keane", "Winston Reid", "Laurent Koscielny", "Christian Fuchs"],
+            "MID": ["N Golo Kante", "Xherdan Shaqiri", "Philippe Coutinho"],
+            "ATT": ["Pedro", "Eden Hazard", "Sadio Mane"]
+          }
+        ]
+      },
+      {
+        "fixture": 10,
+        "players": [
+          {
+            "GK": ["Tom Heaton "],
+            "DEF": ["Victor Moses", "Michael Keane", "Kieran Gibbs "],
+            "MID": ["Ilkay Gundogan", "Philippe Coutinho", "Joe Allen", "Eden Hazard"],
+            "ATT": ["Alexis Sanchez", "Sergio Aguero", "Romelu Lukaku"]
+          }
+        ]
+      },
+      {
+        "fixture": 11,
+        "players": [
+          {
+            "GK": ["Jordan Pickford"],
+            "DEF": ["Victor Moses", "Michael Dawson", "Marcos Alonso"],
+            "MID": ["Sadio Mane", "Adam Lallana", "Philippe Coutinho", "Eden Hazard"],
+            "ATT": ["Pedro", "Roberto Firmino", "Diego Costa"]
+          }
+        ]
+      },
+      {
+        "fixture": 12,
+        "players": [
+          {
+            "GK": ["Jordan Pickford"],
+            "DEF": ["Seamus Coleman", "Nathan Ake", "Patrick Van Aanholt"],
+            "MID": ["Yaya Toure", "Juan Mata", "Etienne Capoue", "Matt Phillips "],
+            "ATT": ["Victor Anichebe", "Harry Kane", "Jermain Defoe"]
+          }
+        ]
+      },
+      {
+        "fixture": 13,
+        "players": [
+          {
+            "GK": ["Darren Randolph"],
+            "DEF": ["Victor Moses", "Nicolas Otamendi", "Gareth McAuley", "James Milner"],
+            "MID": ["Leroy Fer ", "Jordan Henderson", "Paul Pogba"],
+            "ATT": ["Alexis Sanchez", "Gylfi Sigurdsson", "Alvaro Negredo"]
+          }
+        ]
+      },
+      {
+        "fixture": 14,
+        "players": [
+          {
+            "GK": ["Lee Grant"],
+            "DEF": ["James Tomkins", "David Luiz", "Steve Cook", "Jonny Evans"],
+            "MID": ["Ryan Fraser", "Christian Eriksen", "Alex Oxlade-Chamberlain"],
+            "ATT": ["Harry Kane", "Alexis Sanchez", "Christian Benteke"]
+          }
+        ]
+      },
+      {
+        "fixture": 15,
+        "players": [
+          {
+            "GK": ["David De Gea"],
+            "DEF": ["Cesar Azpilicueta", "Phil Jones", "Sebastian Prodl", "José Holebas"],
+            "MID": ["Ander Herrera", "Wilfried Zaha", "Gylfi Sigurdsson", "Stefano Okaka"],
+            "ATT": ["Fernando Llorente", "Jamie Vardy"]
+          }
+        ]
+      },
+      {
+        "fixture": 16,
+        "players": [
+          {
+            "GK": ["Thibaut Courtois"],
+            "DEF": ["Nathaniel Clyne", "Steve Cook", "Leighton Baines"],
+            "MID": ["Adam Lallana", "Paul Pogba", "Marc Pugh", "Christian Eriksen"],
+            "ATT": ["Divock Origi", "Zlatan Ibrahimovic", "Salomon Rondon"]
+          }
+        ]
+      },
+      {
+        "fixture": 17,
+        "players": [
+          {
+            "GK": ["Jordan Pickford"],
+            "DEF": ["Kyle Walker", "Cesar Azpilicueta", "Jan Vertonghen", "Danny Rose"],
+            "MID": ["Jordan Henderson", "Sadio Mane", "Dele Alli"],
+            "ATT": ["Zlatan Ibrahimovic", "Alvaro Negredo", "Jay Rodriguez"]
+          }
+        ]
+      },
+      {
+        "fixture": 18,
+        "players": [
+          {
+            "GK": ["Ben Foster"],
+            "DEF": ["James Milner", "Winston Reid", "Danny Rose", "Paul Pogba"],
+            "MID": ["Pedro", "Dele Alli", "Roberto Firmino"],
+            "ATT": ["Zlatan Ibrahimovic", "Andy Carroll", "Eden Hazard"]
+          }
+        ]
+      },
+      {
+        "fixture": 19,
+        "players": [
+          {
+            "GK": ["Artur Boruc"],
+            "DEF": ["Kieran Trippier ", "Ragnar Klavan ", "James Milner"],
+            "MID": ["Cesc Fabregas", "Paul Pogba", "Willian", "Dele Alli", "Anthony Martial"],
+            "ATT": ["Andre Gray", "Harry Kane"]
+          }
+        ]
+      },
+      {
+        "fixture": 20,
+        "players": [
+          {
+            "GK": ["Vito Mannone"],
+            "DEF": ["Charlie Daniels", "Nicolas Otamendi", "Ryan Shawcross", "Leighton Baines"],
+            "MID": ["Christian Eriksen", "Dele Alli", "Matt Phillips "],
+            "ATT": ["Oliver Giroud", "Romelu Lukaku", "Jermain Defoe"]
+          }
+        ]
+      },
+      {
+        "fixture": 21,
+        "players": [
+          {
+            "GK": ["Victor Valdes"],
+            "DEF": ["Michail Antonio", "David Luiz", "Laurent Koscielny", "Marcos Alonso"],
+            "MID": ["Tom Davies", "Christian Eriksen", "Marko Arnautovic"],
+            "ATT": ["Harry Kane", "Peter Crouch", "Abel Hernandez"]
+          }
+        ]
+      },
+      {
+        "fixture": 22,
+        "players": [
+          {
+            "GK": ["Thibaut Courtois"],
+            "DEF": ["Seamus Coleman", "Gary Cahill", "Harry Maguire", "Chris Brunt"],
+            "MID": ["Ander Herrera", "Victor Moses", "Manuel Lanzini", "Roberto Firmino"],
+            "ATT": ["Fernando Llorente", "Andy Carroll"]
+          }
+        ]
+      },
+      {
+        "fixture": 23,
+        "players": [
+          {
+            "GK": ["Eldin Jakupovic"],
+            "DEF": ["Michael Keane", "David Luiz", "Younes Kaboul"],
+            "MID": ["N Golo Kante", "Marko Arnautovic", "David Silva", "Gylfi Sigurdsson"],
+            "ATT": ["Gabriel Jesus", "Troy Deeney", "Peter Crouch"]
+          }
+        ]
+      },
+      {
+        "fixture": 24,
+        "players": [
+          {
+            "GK": ["Vito Mannone"],
+            "DEF": ["Lamine Kone", "Andrea Ranocchia", "Chris Smalling"],
+            "MID": ["Ross Barkley", "Pedro Obiang", "Henrik Mkhitaryan", "Eden Hazard"],
+            "ATT": ["Gabriel Jesus", "Jermain Defoe", "Romelu Lukaku"]
+          }
+        ]
+      },
+      {
+        "fixture": 25,
+        "players": [
+          {
+            "GK": ["Willy Caballero"],
+            "DEF": ["Martin Olsson", "Alfie Mawson", "Eric Bailly", "Ryan Bertrand"],
+            "MID": ["Ander Herrera", "Raheem Sterling", "Anthony Martial"],
+            "ATT": ["Sadio Mane", "Alexis Sanchez", "Manolo Gabbiadini"]
+          }
+        ]
+      },
+      {
+        "fixture": 26,
+        "players": [
+          {
+            "GK": ["Kasper Schmeichel"],
+            "DEF": ["Seamus Coleman", "Craig Dawson", "Patrick Van Aanholt"],
+            "MID": ["Idrissa Gueye", "Cesc Fabregas", "Pedro", "Christian Eriksen", "Eden Hazard"],
+            "ATT": ["Harry Kane", "Jamie Vardy"]
+          }
+        ]
+      },
+      {
+        "fixture": 27,
+        "players": [
+          {
+            "GK": ["Artur Boruc"],
+            "DEF": ["Antonio Valencia", "Aleksandar Kolarov", "Martin Olsson"],
+            "MID": ["Georginio Wijnaldum", "Sadio Mane", "Marko Arnautovic", "Dusan Tadic", "Nathan Redmond"],
+            "ATT": ["Roberto Firmino", "Fernando Llorente"]
+          }
+        ]
+      },
+      {
+        "fixture": 28,
+        "players": [
+          {
+            "GK": ["Darren Randolph"],
+            "DEF": ["Joel Matip", "Ben Mee ", "Bruno Martins Indi", "Morgan Schneiderlin"],
+            "MID": ["Emre Can", "Ross Barkley", "Joshua King", "Gylfi Sigurdsson"],
+            "ATT": ["Romelu Lukaku", "Omar Niasse"]
+          }
+        ]
+      },
+      {
+        "fixture": 29,
+        "players": [
+          {
+            "GK": ["Tom Heaton "],
+            "DEF": ["Craig Dawson", "David Luiz", "Leighton Baines"],
+            "MID": ["N Golo Kante", "Willian", "Riyad Mahrez", "Manuel Lanzini", "Jesse Lingard"],
+            "ATT": ["Joshua King", "Romelu Lukaku"]
+          }
+        ]
+      },
+      {
+        "fixture": 30,
+        "players": [
+          {
+            "GK": ["Wayne Hennessey"],
+            "DEF": ["Danny Simpson", "Shkodran Mustafi", "Eric Dier", "Miguel Britos"],
+            "MID": ["Andrew Robertson", "Onyinye Ndidi", "Lucas", "Wilfried Zaha", "Philippe Coutinho"],
+            "ATT": ["Christian Benteke"]
+          }
+        ]
+      },
+      {
+        "fixture": 31,
+        "players": [
+          {
+            "GK": ["Joel Robles"],
+            "DEF": ["Cedric Soares", "Phil Jagielka", "Michael Keane", "Ben Mee ", "Marc Albrighton"],
+            "MID": ["Dele Alli", "Mesut Ozil", "Nathan Redmond", "Eden Hazard"],
+            "ATT": ["M‘Baye Niang"]
+          }
+        ]
+      },
+      {
+        "fixture": 32,
+        "players": [
+          {
+            "GK": ["Fraser Forster"],
+            "DEF": ["Kieran Trippier ", "John Stones", "Marcos Alonso"],
+            "MID": ["Eric Dier", "Wilfried Zaha", "Dele Alli", "Kevin Mirallas", "Son Heung-Min"],
+            "ATT": ["Zlatan Ibrahimovic", "Romelu Lukaku"]
+          }
+        ]
+      },
+      {
+        "fixture": 33,
+        "players": [
+          {
+            "GK": ["Simon Mignolet"],
+            "DEF": ["Joel Matip", "Robert Huth", "Vincent Kompany"],
+            "MID": ["Ander Herrera", "Ross Barkley", "Kevin De Bruyne", "Son Heung-Min"],
+            "ATT": ["Roberto Firmino", "Harry Kane", "Marcus Rashford"]
+          }
+        ]
+      },
+      {
+        "fixture": 34,
+        "players": [
+          {
+            "GK": ["Brad Guzan"],
+            "DEF": ["Ashley Young", "Eric Bailly", "Daley Blind", "Charlie Daniels"],
+            "MID": ["Harry Arter", "Marc Pugh", "Eden Hazard"],
+            "ATT": ["Diego Costa", "Christian Benteke", "Anthony Martial"]
+          }
+        ]
+      },
+      {
+        "fixture": 35,
+        "players": [
+          {
+            "GK": ["Eldin Jakupovic"],
+            "DEF": ["Simon Francis", "Michael Keane", "Gary Cahill", "Jan Vertonghen"],
+            "MID": ["Onyinye Ndidi", "Nemanja Matic", "Emre Can", "Pedro"],
+            "ATT": ["Sergio Aguero", "Joshua King"]
+          }
+        ]
+      },
+      {
+        "fixture": 36,
+        "players": [
+          {
+            "GK": ["Fraser Forster"],
+            "DEF": ["Cesar Azpilicueta", "Vincent Kompany", "Nicolas Otamendi", "Marcos Alonso"],
+            "MID": ["Fernandinho", "Cesc Fabregas", "Alex Oxlade-Chamberlain", "Kevin De Bruyne", "Manuel Lanzini"],
+            "ATT": ["Sam Vokes "]
+          }
+        ]
+      },
+      {
+        "fixture": 37,
+        "players": [
+          {
+            "GK": ["Simon Mignolet"],
+            "DEF": ["Kyle Naughton", "Cesar Azpilicueta", "Phil Jagielka", "Ben Davies"],
+            "MID": ["Georginio Wijnaldum", "Victor Wanyama", "Philippe Coutinho", "Alexis Sanchez"],
+            "ATT": ["Oliver Giroud", "Christian Benteke"]
+          }
+        ]
+      },
+      {
+        "fixture": 38,
+        "players": [
+          {
+            "GK": ["Jack Butland"],
+            "DEF": ["Vincent Kompany", "Kieran Trippier ", "Fernandinho"],
+            "MID": ["Christian Eriksen", "Georginio Wijnaldum", "Kevin De Bruyne", "Philippe Coutinho"],
+            "ATT": ["Gabriel Jesus", "Harry Kane", "Sergio Aguero"]
+          }
+        ]
+      }
+    ]
+  }
+]
