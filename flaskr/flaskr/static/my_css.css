@@ -1,0 +1,44 @@
+#a{
+    width: 15%;
+    margin-left: 20%;
+    margin-right: 20%;
+    }
+
+#b {
+    width: 15%;
+    margin-right: 10%;
+}
+#c, #d, #e, #f {
+    width: 15%;
+    margin-right: 5%;
+}
+#c {
+    margin-left: 10%;
+
+}
+#f{
+margin-right: 10%}
+
+#g, #h, #i, #j {
+    width: 15%;
+    margin-right: 5%;
+}
+#g {
+    margin-left: 10%;
+
+}
+#j{
+margin-right: 10%}
+
+#k{
+    margin-left: 40%;
+}
+
+div > img {
+    width: inherit;
+    width: 15%
+}
+div {
+    display: inline;
+    margin-bottom: 20px;
+}
