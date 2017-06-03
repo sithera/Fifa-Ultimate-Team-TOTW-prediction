@@ -103,7 +103,7 @@ class DataAnalyzer(object):
         return filter(lambda x : datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7) and datetime.strptime(x[1], '%Y-%m-%d') < datetime(start_year+1, 7, 7), candidates)
 
     def update_all_players(self, year):
-        fixtures = range(38,39)
+        fixtures = range(8,39)
         for i in fixtures:
             self.update_if_in_TOtw(year, i)
             self.save_to_file('data_calculated' + str(i), str(self.Y))
@@ -126,7 +126,11 @@ if __name__ == "__main__":
 
     #data.handle_json(2)
     #data.find_player_id('Ashley Fletcher')
-    data.update_all_players(2015)
     #print data.Y
     #data.slice_by_season(2015)
 	
+    #data.update_all_players(2015)
+
+    print data.find_player_id("Carl Jenkinson")
+    
+
