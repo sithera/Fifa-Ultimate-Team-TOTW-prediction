@@ -6,6 +6,7 @@ import sys
 import numpy as np
 from sklearn.decomposition import PCA
 import json
+import csv
 from pprint import pprint
 from datetime import datetime
 
@@ -70,9 +71,13 @@ class DataAnalyzer(object):
             id = self.find_player_id(player)
             matches = [match for match in self.find_element(id)]
             candidates = self.prepare_candidates(matches)
+            print candidates
             candidates = self.slice_by_fixture(candidates, fixture)
+            print candidates
             candidates = self.slice_by_season(candidates, year)
+            print candidates
             #try:
+
             self.Y[candidates[0][-1]][-1] = 1 # is in team of the week
             #except IndexError:
             #    pass
@@ -97,21 +102,27 @@ class DataAnalyzer(object):
         return candidates
 
     def slice_by_fixture(self, candidates, fixture):
-        return filter(lambda x : x[2] == fixture, candidates)
+        return filter(lambda x: x[2] == fixture, candidates)
 
     def slice_by_season(self, candidates, start_year):
         return filter(lambda x : datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7) and datetime.strptime(x[1], '%Y-%m-%d') < datetime(start_year+1, 7, 7), candidates)
 
     def update_all_players(self, year):
-        fixtures = range(8,39)
+        fixtures = range(29,38)
         for i in fixtures:
             self.update_if_in_TOtw(year, i)
             self.save_to_file('data_calculated' + str(i), str(self.Y))
         
     def save_to_file(self, filename, content):
+        filename = filename + ".csv"
         with open(filename, 'w') as file:
             file.write(content)
 
+#with open('eggs.csv', 'wb') as csvfile:
+#    spamwriter = csv.writer(csvfile, delimiter=' ',
+#                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#    spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
+#    spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
 
 
 
@@ -129,8 +140,8 @@ if __name__ == "__main__":
     #print data.Y
     #data.slice_by_season(2015)
 	
-    #data.update_all_players(2015)
-
-    print data.find_player_id("Carl Jenkinson")
+    data.update_all_players(2015)
+    #print "plaers ids"
+    #print data.find_player_id("Robbie Brady")
     
 

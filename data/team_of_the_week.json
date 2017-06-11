@@ -150,7 +150,7 @@
       "players": [
         {
           "GK": ["Willy Caballero"],
-          "DEF": ["Robert Huth", "Patrick Van Aanholt", "Toby Alderweireld"],
+          "DEF": ["Robert Huth", "Patrick van Aanholt", "Toby Alderweireld"],
           "MID": ["Yannick Bolasie", "James McArthur", "Kevin De Bruyne", "Robbie Brady"],
           "ATT": ["Odion Ighalo", "Jamie Vardy", "Junior Stanislas"]
         }
@@ -249,7 +249,7 @@
       "players": [
         {
           "GK": ["Hugo Lloris"],
-          "DEF": ["Branislav Ivanovic", "Ashley Williams", "Craig Cathcart", "Patrick Van Aanholt"],
+          "DEF": ["Branislav Ivanovic", "Ashley Williams", "Craig Cathcart", "Patrick van Aanholt"],
           "MID": ["N Golo Kante", "Dele Alli", "Andre Ayew", "Roberto Firmino", "Dimitri Payet"],
           "ATT": ["Sergio Aguero"]
         }
@@ -540,7 +540,7 @@
         "players": [
           {
             "GK": ["Jordan Pickford"],
-            "DEF": ["Seamus Coleman", "Nathan Ake", "Patrick Van Aanholt"],
+            "DEF": ["Seamus Coleman", "Nathan Ake", "Patrick van Aanholt"],
             "MID": ["Yaya Toure", "Juan Mata", "Etienne Capoue", "Matt Phillips "],
             "ATT": ["Victor Anichebe", "Harry Kane", "Jermain Defoe"]
           }
@@ -694,7 +694,7 @@
         "players": [
           {
             "GK": ["Kasper Schmeichel"],
-            "DEF": ["Seamus Coleman", "Craig Dawson", "Patrick Van Aanholt"],
+            "DEF": ["Seamus Coleman", "Craig Dawson", "Patrick van Aanholt"],
             "MID": ["Idrissa Gueye", "Cesc Fabregas", "Pedro", "Christian Eriksen", "Eden Hazard"],
             "ATT": ["Harry Kane", "Jamie Vardy"]
           }
