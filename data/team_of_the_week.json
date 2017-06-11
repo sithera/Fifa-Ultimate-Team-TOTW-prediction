@@ -825,10 +825,10 @@
         "fixture": 37,
         "players": [
           {
-            "GK": ["Simon Mignolet"],
-            "DEF": ["Kyle Naughton", "Cesar Azpilicueta", "Phil Jagielka", "Ben Davies"],
-            "MID": ["Georginio Wijnaldum", "Victor Wanyama", "Philippe Coutinho", "Alexis Sanchez"],
-            "ATT": ["Oliver Giroud", "Christian Benteke"]
+            "GK": ["Lukasz Fabianski"],
+            "DEF": ["Leighton Baines", "Phil Jagielka", "Jonny Evans", "Kyle Naughton"],
+            "MID": ["David Silva", "Cesc Fabregas", "Philippe Coutinho", "Alexis Sanchez", "Ross Barkley"],
+            "ATT": ["Oliver Giroud"]
           }
         ]
       },
