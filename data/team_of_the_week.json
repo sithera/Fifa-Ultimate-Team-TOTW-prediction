@@ -322,6 +322,17 @@
       ]
     },
     {
+      "fixture": 30,
+      "players": [
+        {
+          "GK": ["Brad Guzan"],
+          "DEF": ["Kyle Walker", "Vincent Kompany", "Robert Huth", "Martin Olsson"],
+          "MID": ["Max Gradel", "Gary O Neil", "N Golo Kante", "Dele Alli"],
+          "ATT": ["Graziano Pelle", "Harry Kane"]
+        }
+      ]
+    },
+    {
       "fixture": 31,
       "players": [
         {
