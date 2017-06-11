@@ -71,11 +71,8 @@ class DataAnalyzer(object):
             id = self.find_player_id(player)
             matches = [match for match in self.find_element(id)]
             candidates = self.prepare_candidates(matches)
-            print candidates
             candidates = self.slice_by_fixture(candidates, fixture)
-            print candidates
             candidates = self.slice_by_season(candidates, year)
-            print candidates
             #try:
 
             self.Y[candidates[0][-1]][-1] = 1 # is in team of the week
@@ -108,21 +105,25 @@ class DataAnalyzer(object):
         return filter(lambda x : datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7) and datetime.strptime(x[1], '%Y-%m-%d') < datetime(start_year+1, 7, 7), candidates)
 
     def update_all_players(self, year):
-        fixtures = range(29,38)
+        fixtures = range(1,38)
         for i in fixtures:
             self.update_if_in_TOtw(year, i)
-            self.save_to_file('data_calculated' + str(i), str(self.Y))
+        self.save_to_file('data_calculated', self.Y)
         
     def save_to_file(self, filename, content):
         filename = filename + ".csv"
-        with open(filename, 'w') as file:
-            file.write(content)
+        with open(filename, 'wb') as file:
+            writer = csv.writer(file)
+            #print content
+            #print type(content)
+            for i in content:
+                print i
 
-#with open('eggs.csv', 'wb') as csvfile:
-#    spamwriter = csv.writer(csvfile, delimiter=' ',
-#                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#    spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
-#    spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
+                writer.writerow(i)
+            #file.write(content)
+
+    #spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
+    #spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
 
 
 
