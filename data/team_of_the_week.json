@@ -413,10 +413,10 @@
       "fixture": 38,
       "players": [
         {
-          "GK": ["Wayne Hennessey"],
-          "DEF": ["Fosu-Mensah", "Toby Alderweireld", "Steve Cook", "Alberto Moreno"],
-          "MID": ["N Golo Kante", "Gylfi Sigurdsson", "Alex Iwobi", "Erik Lamela"],
-          "ATT": ["Andy Carroll", "Jamie Vardy", "Rudy Gestede"]
+          "GK": ["Tim Howard"],
+          "DEF": ["Daryl Janmaat", "Leighton Baines", "Wes Morgan", "Hector Bellerin"],
+          "MID": ["Santi Cazorla", "James McCarthy", "Danny Drinkwater", "Olivier Giroud", "Georginio Wijnaldum"],
+          "ATT": ["Mame Diouf"]
         }
       ]
     }
