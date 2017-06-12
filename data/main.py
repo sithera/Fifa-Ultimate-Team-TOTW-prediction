@@ -1,7 +1,11 @@
+from string import join
+
 from PlayersDataFetcher import PlayersDataFetcher
 from DBHandler import DBHandler
 from PlayersPositionFeeder import PlayersPositionFeeder
 import json
+import requests
+import BeautifulSoup
 
 
 def load_players_data_into_database():
@@ -43,9 +47,20 @@ if __name__ == "__main__":
     position_feeder = PlayersPositionFeeder()
 
 
+    for player in handler.get_all_players():
 
-
-
-
-
-
+        headers = requests.utils.default_headers()
+        id = player[1]
+        name = (player[0]).split(" ")
+        if len(name) > 1:
+            name.pop(0)
+        playername = " ".join(name)
+        api_url = 'http://www.easports.com/fifa/ultimate-team/api/fut/item?jsonParamObject={' \
+                  '"name":"' + playername + '"}'
+        r = requests.get(api_url, headers=headers, timeout=20)
+        items = r.json()['items']
+        if len(items) == 0:
+            print playername
+            continue
+        img = items[0]['headshotImgUrl']
+        handler.update_player_photo(img, id)
