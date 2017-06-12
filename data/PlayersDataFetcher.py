@@ -1,8 +1,9 @@
-import urllib
 from datetime import datetime
-from bs4 import BeautifulSoup
 import re
+
+from bs4 import BeautifulSoup
 import requests
+
 from DBHandler import DBHandler
 
 

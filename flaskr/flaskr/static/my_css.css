@@ -1,0 +1,50 @@
+.container {
+    width: 718px;
+    overflow:auto;
+    margin-left: 108px;
+    margin-right: 100px;
+}
+
+.Player {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 90px;
+    width: 70px;
+}
+
+.Player_photo {
+    height: 80%;
+}
+
+.Player_name {
+    height: 20%
+}
+
+.offence {
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
+
+.midfield {
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
+
+.defence{
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
+
+.goalkeep {
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
