@@ -50,7 +50,7 @@ class DBHandler(object):
         self.conn.commit()
         cur.close()
 
-    def get_all_players(self):
+    def get_all_players_statistics(self):
         cur = self.conn.cursor()
         cur.execute('''SELECT * FROM player_statistics''')
 
@@ -64,3 +64,26 @@ class DBHandler(object):
         cur.execute('''SELECT * FROM player WHERE player_name LIKE ?''', (name,))
         if cur.fetchone() is None:
             print name
+        cur.close()
+
+    def get_all_players(self):
+        cur = self.conn.cursor()
+        cur.execute('''SELECT * FROM player''')
+        result = cur.fetchall()
+        cur.close()
+        return result
+
+    def update_player_position(self, position, player_id):
+        cur = self.conn.cursor()
+        cur.execute('''SELECT * FROM player WHERE player_id = ? AND position IS NOT NULL''', (player_id,))
+        if cur.fetchone() is None:
+            cur.execute('''UPDATE player SET position = ? WHERE player_id = ?''', (position, player_id))
+            self.conn.commit()
+        cur.close()
+
+    def get_all_matches_ids(self):
+        cur = self.conn.cursor()
+        cur.execute('''SELECT DISTINCT match_id FROM player_statistics''')
+        result = cur.fetchall()
+        cur.close()
+        return result
