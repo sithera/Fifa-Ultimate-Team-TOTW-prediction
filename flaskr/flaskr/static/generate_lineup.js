@@ -1,11 +1,20 @@
 var offence_no = 3;
 var midfield_no = 3;
 var def_no = 4;
-for (i=1; i<=offence_no; i++){
+$(function() {
+    $("#submitBtn").click(function() {
+    $.ajax({
+        type: "GET",
+        url: $SCRIPT_ROOT + "/getplayers/",
+        contentType: "application/json; charset=utf-8",
+        data: { echoValue: $('input[name="echoText"]').val() },
+        success: function(data) {
+        $}})})})
 
+
+for (i=1; i<=offence_no; i++){
 var off = document.getElementsByClassName("offence");
 var offence = off[0];
-
 var Player = document.createElement("div");
 var Player_photo = document.createElement("div");
 var Player_name = document.createElement("div");

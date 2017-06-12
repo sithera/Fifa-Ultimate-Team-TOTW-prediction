@@ -42,13 +42,8 @@ def assign_position_to_each_player_in_database():
         position_feeder.populate_players_positions(match[0])
 
 
-if __name__ == "__main__":
-    handler = DBHandler()
-    position_feeder = PlayersPositionFeeder()
-
-
+def get_players_photos():
     for player in handler.get_all_players():
-
         headers = requests.utils.default_headers()
         id = player[1]
         name = (player[0]).split(" ")
@@ -64,3 +59,10 @@ if __name__ == "__main__":
             continue
         img = items[0]['headshotImgUrl']
         handler.update_player_photo(img, id)
+
+
+if __name__ == "__main__":
+    handler = DBHandler()
+    position_feeder = PlayersPositionFeeder()
+
+
