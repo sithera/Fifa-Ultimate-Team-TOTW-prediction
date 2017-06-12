@@ -41,25 +41,24 @@ def assign_position_to_each_player_in_database():
         position_feeder.populate_players_positions(match[0])
 
 
-if __name__ == "__main__":
-    handler = DBHandler()
-    position_feeder = PlayersPositionFeeder()
-
-
+def add_photo_to_players():
     for player in handler.get_all_players():
-
-        headers = requests.utils.default_headers()
         id = player[1]
-        name = (player[0]).split(" ")
+        name = player[0].split(" ")
         if len(name) > 1:
             name.pop(0)
-        playername = " ".join(name)
+        player_name = " ".join(name)
         api_url = 'http://www.easports.com/fifa/ultimate-team/api/fut/item?jsonParamObject={' \
-                  '"name":"' + playername + '"}'
-        r = requests.get(api_url, headers=headers, timeout=20)
+                  '"name":"' + player_name + '"}'
+        r = requests.get(api_url)
         items = r.json()['items']
         if len(items) == 0:
-            print playername
+            print player_name
             continue
         img = items[0]['headshotImgUrl']
         handler.update_player_photo(img, id)
+
+
+if __name__ == "__main__":
+    handler = DBHandler()
+    position_feeder = PlayersPositionFeeder()
