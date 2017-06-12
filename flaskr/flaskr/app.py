@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/")
 def main():
     db = DBHandler()
-    output = db.get_all_players()
+    output = db.get_all_players_statistics()
     return output
 
 if __name__ == "__main__":
