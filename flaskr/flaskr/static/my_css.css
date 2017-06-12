@@ -1,44 +1,50 @@
-#a{
-    width: 15%;
-    margin-left: 20%;
-    margin-right: 20%;
-    }
-
-#b {
-    width: 15%;
-    margin-right: 10%;
-}
-#c, #d, #e, #f {
-    width: 15%;
-    margin-right: 5%;
-}
-#c {
-    margin-left: 10%;
-
-}
-#f{
-margin-right: 10%}
-
-#g, #h, #i, #j {
-    width: 15%;
-    margin-right: 5%;
-}
-#g {
-    margin-left: 10%;
-
-}
-#j{
-margin-right: 10%}
-
-#k{
-    margin-left: 40%;
+.container {
+    width: 718px;
+    overflow:auto;
+    margin-left: 108px;
+    margin-right: 100px;
 }
 
-div > img {
-    width: inherit;
-    width: 15%
+.Player {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 90px;
+    width: 70px;
 }
-div {
-    display: inline;
-    margin-bottom: 20px;
+
+.Player_photo {
+    height: 80%;
+}
+
+.Player_name {
+    height: 20%
+}
+
+.offence {
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
+
+.midfield {
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
+
+.defence{
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
+}
+
+.goalkeep {
+    display: table;
+    text-align: center;
+    width: 500px;
+    height: 90px;
 }
