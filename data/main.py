@@ -1,11 +1,10 @@
-from string import join
+import json
+
+import requests
 
 from PlayersDataFetcher import PlayersDataFetcher
 from DBHandler import DBHandler
 from PlayersPositionFeeder import PlayersPositionFeeder
-import json
-import requests
-import BeautifulSoup
 
 
 def load_players_data_into_database():
