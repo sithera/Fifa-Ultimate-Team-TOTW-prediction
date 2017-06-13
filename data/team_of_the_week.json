@@ -150,7 +150,7 @@
       "players": [
         {
           "GK": ["Willy Caballero"],
-          "DEF": ["Robert Huth", "Patrick Van Aanholt", "Toby Alderweireld"],
+          "DEF": ["Robert Huth", "Patrick van Aanholt", "Toby Alderweireld"],
           "MID": ["Yannick Bolasie", "James McArthur", "Kevin De Bruyne", "Robbie Brady"],
           "ATT": ["Odion Ighalo", "Jamie Vardy", "Junior Stanislas"]
         }
@@ -195,7 +195,7 @@
         {
           "GK": ["Jack Butland"],
           "DEF": ["Ryan Shawcross", "Jose Fonte", "Cuco Martina", "Alberto Moreno"],
-          "MID": ["Yaya Toure", "Tom Cleverley", "Marko Arnautovic", "Kevin De Bruyne", "Yohan Cabaye"],
+          "MID": ["Yaya Toure", "Tom Cleverley", "Marko Arnautovic", "Kevin De Bruyne"],
           "ATT": ["Shane Long", "Harry Kane"]
         }
       ]
@@ -249,7 +249,7 @@
       "players": [
         {
           "GK": ["Hugo Lloris"],
-          "DEF": ["Branislav Ivanovic", "Ashley Williams", "Craig Cathcart", "Patrick Van Aanholt"],
+          "DEF": ["Branislav Ivanovic", "Ashley Williams", "Craig Cathcart", "Patrick van Aanholt"],
           "MID": ["N Golo Kante", "Dele Alli", "Andre Ayew", "Roberto Firmino", "Dimitri Payet"],
           "ATT": ["Sergio Aguero"]
         }
@@ -415,7 +415,7 @@
         {
           "GK": ["Tim Howard"],
           "DEF": ["Daryl Janmaat", "Leighton Baines", "Wes Morgan", "Hector Bellerin"],
-          "MID": ["Santi Cazorla", "James McCarthy", "Danny Drinkwater", "Olivier Giroud", "Georginio Wijnaldum"],
+          "MID": ["Santi Cazorla", "James McCarthy", "Danny Drinkwater", "Oliver Giroud", "Georginio Wijnaldum"],
           "ATT": ["Mame Diouf"]
         }
       ]
@@ -551,7 +551,7 @@
         "players": [
           {
             "GK": ["Jordan Pickford"],
-            "DEF": ["Seamus Coleman", "Nathan Ake", "Patrick Van Aanholt"],
+            "DEF": ["Seamus Coleman", "Nathan Ake", "Patrick van Aanholt"],
             "MID": ["Yaya Toure", "Juan Mata", "Etienne Capoue", "Matt Phillips "],
             "ATT": ["Victor Anichebe", "Harry Kane", "Jermain Defoe"]
           }
@@ -705,7 +705,7 @@
         "players": [
           {
             "GK": ["Kasper Schmeichel"],
-            "DEF": ["Seamus Coleman", "Craig Dawson", "Patrick Van Aanholt"],
+            "DEF": ["Seamus Coleman", "Craig Dawson", "Patrick van Aanholt"],
             "MID": ["Idrissa Gueye", "Cesc Fabregas", "Pedro", "Christian Eriksen", "Eden Hazard"],
             "ATT": ["Harry Kane", "Jamie Vardy"]
           }
@@ -827,7 +827,7 @@
           {
             "GK": ["Lukasz Fabianski"],
             "DEF": ["Leighton Baines", "Phil Jagielka", "Jonny Evans", "Kyle Naughton"],
-            "MID": ["David Silva", "Cesc Fabregas", "Philippe Coutinho", "Alexis Sanchez", "Ross Barkley"],
+            "MID": ["David Silva", "Mesut Ozil", "Philippe Coutinho", "Alexis Sanchez", "Ross Barkley"],
             "ATT": ["Oliver Giroud"]
           }
         ]
