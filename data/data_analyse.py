@@ -14,6 +14,8 @@ from collections import defaultdict
 from itertools import chain
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+
 
 class DataAnalyzer(object):
     def __init__(self):
@@ -54,11 +56,11 @@ class DataAnalyzer(object):
         if_in_totw = 0
         self.Y = [[ids[i]] + [date[i]] + [fixtures[i]] + self.Y[i].tolist() + [if_in_totw] for i in range(len(self.rows))]
 
-    def update_all_players(self, year, position):
+    def update_all_players(self, year):
         fixtures = range(1, 39)
         for i in fixtures:
             self.update_if_player_in_totw(year, i)
-        self.save_to_file('data_calculated{}{}'.format(str(year), position), self.Y)
+        self.save_to_file('data_calculated{}'.format(str(year)), self.Y)
 
     def update_if_player_in_totw(self, year, fixture):
         positions = self.handle_json(year, fixture)
@@ -136,89 +138,74 @@ class DataAnalyzer(object):
     #spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
     #spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
 
-    def split_data_by_position(self):
+    def split_data_by_position(self, year):
         # player_data = filter(lambda x: x[1] == name, [self.rows[i] for i in range(len(self.rows))])
-        self.splitted_data["GK"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "gk"]
-        self.splitted_data["DEF"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "def"]
-        self.splitted_data["MID"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "mid"]
-        self.splitted_data["ATT"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "att"]
-
+        self.splitted_data["GK"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][0] == "gk"]
+        self.save_to_file('data_calculated{}{}'.format(str(year), "GK"), self.splitted_data["GK"])
+        self.splitted_data["DEF"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][0] == "def"]
+        self.save_to_file('data_calculated{}{}'.format(str(year), "DEF"), self.splitted_data["DEF"])
+        self.splitted_data["MID"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][0] == "mid"]
+        self.save_to_file('data_calculated{}{}'.format(str(year), "MID"), self.splitted_data["MID"])
+        self.splitted_data["ATT"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][0] == "att"]
+        self.save_to_file('data_calculated{}{}'.format(str(year), "ATT"), self.splitted_data["ATT"])
 
         #self.splitted_data["DEF"] = filter(lambda x: x[2] == "def", [self.Y[i] for i in range(len(self.rows))])
         #self.splitted_data["MID"] = filter(lambda x: x[2] == "mid", [self.Y[i] for i in range(len(self.rows))])
         #self.splitted_data["ATT"] = filter(lambda x: x[2] == "att", [self.Y[i] for i in range(len(self.rows))])
         #self.rows = filter(lambda x: x[2] == position.lower(), [self.rows[i] for i in range(len(self.rows))])
 
-    def run_svm(self):
-        print len(self.rows)
-        #for i in range(len(self.training_set)):
-        #    print self.Y[i][-1]
-
-        #for i in range(len(self.training_set)):
-            #X.append(self.training_set[i][8:-1])
-            # print self.training_set[i][8:-1]
-            # print self.training_set[i][3:6]
-         #   ysvm.append(self.training_set[i][-1])
-
-        #print Xsvm
-        #print ysvm
-        xtrain, ytrain, xtest, ytest = self.split_data()
+    def run_svm(self, data_to_run):
+        X_train, X_test, y_train, y_test = self.split_data(data_to_run)
+        print len(X_train)
+        print len(X_test)
+        print len(y_train)
+        print len(y_test)
 
         clf = svm.SVC(kernel='linear')
-        print clf.fit(xtrain, ytrain)
+        #print X_train
+        #print y_train
+        print clf.fit(X_train, y_train)
         # print clf.score(xtest, ytest)
-        y_pred = clf.predict(xtest)
-        print confusion_matrix(ytest, y_pred)
+        y_pred = clf.predict(X_test)
+        print confusion_matrix(y_test, y_pred)
 
-    def split_data(self):
-        xtrain = []
-        ytrain = []
-        xtest = []
-        ytest = []
-
-        for j, i in enumerate(self.rows):
-            # print j
-            if j % 4 != 0:
-                xtrain.append(i[8:-1])
-                ytrain.append(i[-1])
-            else:
-                xtest.append(i[8:-1])
-                ytest.append(i[-1])
-        print "here "
-        print [x for x in ytrain if x]
-        return xtrain, ytrain, xtest, ytest
-
-
+    def split_data(self, data_to_split):
+        data_ready_x = []
+        data_ready_y = []
+        print "cos {}".format(list(data_to_split)[0])
+        for i in range(len(data_to_split)):
+            data_ready_x.append(data_to_split[i][3:-1])
+            data_ready_y.append(data_to_split[i][-1])
+        print data_ready_x[0]
+        print data_ready_x[1]
+        X_train, X_test, y_train, y_test = train_test_split(data_ready_x, data_ready_y, test_size=0.33)
+        return X_train, X_test, y_train, y_test
 
 
     
 if __name__ == "__main__":
+    '''
     data = DataAnalyzer()
     data.fetch_data()
-    # print data.rows
-    position = "GK"
     data.prepare_features()
     data.prepare_y()
-    # data.run_PCA()
-    # print "PCA variance for 3 components: {0}".format(data.pca_variance)
-    # print "Sum of first 3 PCA components: {0}".format(sum(data.pca_variance))
+    data.update_all_players(2016)
+    data.split_data_by_position(2016)
+    '''
+    # filename = "data_calculated2016GK.csv"
+    filename = "data_calculated2016DEF.csv"
+    # filename = "data_calculated2016MID.csv"
+    # filename = "data_calculated2016ATT.csv"
+    data_to_analyse = []
 
-    #data.handle_json(2)
-    #data.find_player_id('Ashley Fletcher')
-    #print data.Y
-    #data.slice_by_season(2015)
+    with open(filename, 'rb') as f:
+        reader = csv.reader(f, delimiter=',')
+        counter = 0
+        for row in reader:
+            row = [int(i) for i in row if "-" not in i]
+            data_to_analyse.append(row)
 
-    data.update_all_players(2016, position)
-    data.split_data_by_position()
-    print data.splitted_data["GK"]
-    #data.split_data_by_position("att")
-    # print [x for x in data.splitted_data["GK"] if x[0] == 4378]
-    #print [x[-1] for x in data.splitted_data["DEF"] if x[-1]]
-    #print [x[-1] for x in data.splitted_data["MID"] if x[-1]]
-    #print [x[-1] for x in data.splitted_data["ATT"] if x[-1]]
+    data = DataAnalyzer()
+    data.run_svm(data_to_analyse)
 
-    # data.run_svm()
-    #print "plaers ids"
-    #print data.find_player_id("Michael Keane")
-    
 
