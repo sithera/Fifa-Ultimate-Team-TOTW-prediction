@@ -15,6 +15,8 @@ from itertools import chain
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import RandomOverSampler, SMOTE, ADASYN
+import random
 
 
 class DataAnalyzer(object):
@@ -154,34 +156,89 @@ class DataAnalyzer(object):
         #self.splitted_data["ATT"] = filter(lambda x: x[2] == "att", [self.Y[i] for i in range(len(self.rows))])
         #self.rows = filter(lambda x: x[2] == position.lower(), [self.rows[i] for i in range(len(self.rows))])
 
-    def run_svm(self, data_to_run):
-        X_train, X_test, y_train, y_test = self.split_data(data_to_run)
+    def run_svm(self, data_to_run, test_data):
+        X_train, X_test, y_train, y_test = self.split_data(data_to_run, test_data)
         print len(X_train)
         print len(X_test)
         print len(y_train)
         print len(y_test)
 
-        clf = svm.SVC(kernel='linear')
-        #print X_train
-        #print y_train
+        clf = svm.SVC(kernel='linear', probability=True)
+        print "classification done"
         print clf.fit(X_train, y_train)
-        # print clf.score(xtest, ytest)
-        y_pred = clf.predict(X_test)
-        print confusion_matrix(y_test, y_pred)
+        print "fit done"
+        print "score: {}".format(clf.score(X_test, y_test))
+        y_pred = clf.predict_proba(X_test)
+        print y_pred
+        players = []
+        rand = str(random.random())
+        for i in range(len(test_data)):
+            players.append(test_data[i][:3])
+        self.save_to_file("results" + rand, players)
+        self.save_to_file("predicted" + rand, y_pred)
+        results = zip(players, y_pred)
+        combined = []
+        for i in results:
+            print i
+            combined.append(sum(i, []))
+        self.save_to_file("combined" + rand, combined)
 
-    def split_data(self, data_to_split):
+        # print confusion_matrix(y_test, y_pred)
+
+    def split_data(self, data_to_split, test_data):
         data_ready_x = []
         data_ready_y = []
+        data_ready_test_x = []
+        data_ready_test_y = []
         print "cos {}".format(list(data_to_split)[0])
         for i in range(len(data_to_split)):
             data_ready_x.append(data_to_split[i][3:-1])
             data_ready_y.append(data_to_split[i][-1])
-        print data_ready_x[0]
-        print data_ready_x[1]
-        X_train, X_test, y_train, y_test = train_test_split(data_ready_x, data_ready_y, test_size=0.33)
+        for i in range(len(test_data)):
+            data_ready_test_x.append(test_data[i][3:-1])
+            data_ready_test_y.append(test_data[i][-1])
+        X_train, y_train = self.oversample(data_ready_x, data_ready_y)
+        X_test, y_test = data_ready_test_x, data_ready_test_y
         return X_train, X_test, y_train, y_test
 
 
+    def oversample(self, X_train, y_train):
+        # X_train, y_train = self.oversample_data(X_train, y_train)
+        X_train, y_train = self.smote(X_train, y_train)
+        # X_train, y_train = self.adasyn(X_train, y_train)
+        return X_train, y_train
+
+    def oversample_data(self, X, y):
+        ros = RandomOverSampler()
+        X_resampled, y_resampled = ros.fit_sample(X, y)
+        return X_resampled, y_resampled
+
+    def smote(self, X, y):
+        X_resampled, y_resampled = SMOTE().fit_sample(X, y)
+        return X_resampled, y_resampled
+
+    def adasyn(self, X, y):
+        ada = ADASYN()
+        X_resampled, y_resampled = ada.fit_sample(X, y)
+        return X_resampled, y_resampled
+
+    def slice_sets(self, dataset, fixture, year):
+        test_data = []
+        train_data = []
+        for i in dataset:
+            if i[2] == fixture and datetime(year + 1, 7, 7) > datetime.strptime(i[1], '%Y-%m-%d') > datetime(year, 7, 7):
+                test_data.append(i)
+            else:
+                train_data.append(i)
+        return train_data, test_data
+
+    def prepare_test_data(self, dataset, fixture, year):
+        sliced = self.slice_by_fixture(dataset, fixture)
+        print "done"
+        print sliced[0]
+        sliced = self.slice_by_season(sliced, year)
+        print "sliced: {}".format(sliced)
+        return sliced
     
 if __name__ == "__main__":
     '''
@@ -192,8 +249,8 @@ if __name__ == "__main__":
     data.update_all_players(2016)
     data.split_data_by_position(2016)
     '''
-    # filename = "data_calculated2016GK.csv"
-    filename = "data_calculated2016DEF.csv"
+    filename = "data_calculated2016GK.csv"
+    # filename = "data_calculated2016DEF.csv"
     # filename = "data_calculated2016MID.csv"
     # filename = "data_calculated2016ATT.csv"
     data_to_analyse = []
@@ -202,10 +259,16 @@ if __name__ == "__main__":
         reader = csv.reader(f, delimiter=',')
         counter = 0
         for row in reader:
-            row = [int(i) for i in row if "-" not in i]
+            row = [int(i) if "-" not in i else i for i in row]
             data_to_analyse.append(row)
 
+    fixture_test = 30
+    year_test = 2016
+
     data = DataAnalyzer()
-    data.run_svm(data_to_analyse)
+    train_data, test_data = data.slice_sets(data_to_analyse, fixture_test, year_test)
+    # test_data = data.prepare_test_data(data_to_analyse, fixture_test, year_test)
+    data.run_svm(train_data, test_data)
+    print "done"
 
 
