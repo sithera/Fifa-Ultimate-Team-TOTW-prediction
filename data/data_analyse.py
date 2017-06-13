@@ -34,7 +34,6 @@ class DataAnalyzer(object):
                 if row is None:
                     break
                 self.rows.append(row)
-        print self.rows
 
     def prepare_features(self, features_start_index=6):
         self.X = np.array([list(self.rows[x][features_start_index:]) for x in range(len(self.rows))])
@@ -98,8 +97,6 @@ class DataAnalyzer(object):
 
     def find_player_id(self, name):
         #print [self.rows[i] for i in range(len(self.rows))]
-        print name
-        print self.rows[0]
         player_data = filter(lambda x: x[2] == name, [self.rows[i] for i in range(len(self.rows))])
         return player_data[0][1]
 
@@ -122,7 +119,7 @@ class DataAnalyzer(object):
         return filter(lambda x: x[2] == fixture, candidates)
 
     def slice_by_season(self, candidates, start_year):
-        return filter(lambda x : datetime(start_year+1, 7, 7) > datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7), candidates)
+        return filter(lambda x: datetime(start_year+1, 7, 7) > datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7), candidates)
 
     def save_to_file(self, filename, content):
         filename = filename + ".csv"
@@ -139,30 +136,18 @@ class DataAnalyzer(object):
     #spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
     #spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
 
-    def split_data_by_position(self, position):
+    def split_data_by_position(self):
         # player_data = filter(lambda x: x[1] == name, [self.rows[i] for i in range(len(self.rows))])
         self.splitted_data["GK"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "gk"]
-        print "Y przed:"
-        print self.Y[0]
-        self.splitted_data["GK"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "gk"]
-        print self.splitted_data["GK"][0]
-        print "po"
-        print [a[-1] for a in self.Y if a[-1]]
-        print [a[-1] for a in self.splitted_data["GK"] if a[-1]]
-        for a in self.splitted_data["GK"]:
-            if a[-1]:
-                print a[-1]
         self.splitted_data["DEF"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "def"]
         self.splitted_data["MID"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "mid"]
         self.splitted_data["ATT"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "att"]
 
 
-        # print self.splitted_data["GK"]
-        self.splitted_data["DEF"] = filter(lambda x: x[2] == "def", [self.Y[i] for i in range(len(self.rows))])
-        self.splitted_data["MID"] = filter(lambda x: x[2] == "mid", [self.Y[i] for i in range(len(self.rows))])
-        self.splitted_data["ATT"] = filter(lambda x: x[2] == "att", [self.Y[i] for i in range(len(self.rows))])
-        self.rows = filter(lambda x: x[2] == position.lower(), [self.rows[i] for i in range(len(self.rows))])
-        return self.rows
+        #self.splitted_data["DEF"] = filter(lambda x: x[2] == "def", [self.Y[i] for i in range(len(self.rows))])
+        #self.splitted_data["MID"] = filter(lambda x: x[2] == "mid", [self.Y[i] for i in range(len(self.rows))])
+        #self.splitted_data["ATT"] = filter(lambda x: x[2] == "att", [self.Y[i] for i in range(len(self.rows))])
+        #self.rows = filter(lambda x: x[2] == position.lower(), [self.rows[i] for i in range(len(self.rows))])
 
     def run_svm(self):
         print len(self.rows)
@@ -224,6 +209,8 @@ if __name__ == "__main__":
     #data.slice_by_season(2015)
 
     data.update_all_players(2016, position)
+    data.split_data_by_position()
+    print data.splitted_data["GK"]
     #data.split_data_by_position("att")
     # print [x for x in data.splitted_data["GK"] if x[0] == 4378]
     #print [x[-1] for x in data.splitted_data["DEF"] if x[-1]]
