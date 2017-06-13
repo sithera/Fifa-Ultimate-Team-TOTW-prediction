@@ -7,8 +7,8 @@
 
 .Player {
     display: inline-block;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
     height: 90px;
     width: 70px;
 }
@@ -18,10 +18,13 @@
 }
 
 .Player_name {
-    height: 20%
+    height: 20%;
+    color: white;
+    text-shadow: 2px 2px #000000;
 }
 
 .offence {
+
     display: table;
     text-align: center;
     width: 500px;
