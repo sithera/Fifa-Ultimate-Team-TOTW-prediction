@@ -10,82 +10,138 @@ import json
 import csv
 from pprint import pprint
 from datetime import datetime
+from collections import defaultdict
+from itertools import chain
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import confusion_matrix
 
 class DataAnalyzer(object):
-    def __init__(self, db='statistics.db'):
+    def __init__(self):
         self.conn = sqlite3.connect('statistics.db')
         self.rows = []
+        self.players = []
         self.X = []
-        self.Y = [] # id, date, fixture, statistics, if in 11 of the week
+        self.Y = []  # id, date, fixture, statistics, if in team of the week
         self.pca_variance = []
+        self.splitted_data = {}
+        self.training_set = []
     
-    def fetch_data(self, table='player_statistics'):
+    def fetch_data(self, table1='player', table2='player_statistics'):
         with self.conn:
             cursor = self.conn.cursor()    
-            cursor.execute("SELECT * FROM " + str(table))
+            cursor.execute("SELECT * FROM {0} JOIN {1} ON {0}.player_id = {1}.player_id;".format(str(table1), str(table2)))
             while True:      
                 row = cursor.fetchone()
-                if row == None:
+                if row is None:
                     break
                 self.rows.append(row)
-    
-    def run_PCA(self):
-        self.X = np.array([list(self.rows[x][5:]) for x in range(len(self.rows))])
+
+    def split_data_by_position(self, position):
+        # player_data = filter(lambda x: x[1] == name, [self.rows[i] for i in range(len(self.rows))])
+        #print self.Y[0]
+        #print self.rows[0]
+        #print self.training_set[0]
+        self.splitted_data["GK"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "gk"]
+        print "Y przed:"
+        print self.Y[0]
+        self.splitted_data["GK"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "gk"]
+        print self.splitted_data["GK"][0]
+        print "po"
+        print [a[-1] for a in self.Y if a[-1]]
+        print [a[-1] for a in self.splitted_data["GK"] if a[-1]]
+        for a in self.splitted_data["GK"]:
+            if a[-1]:
+                print a[-1]
+        self.splitted_data["DEF"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "def"]
+        self.splitted_data["MID"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "mid"]
+        self.splitted_data["ATT"] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][2] == "att"]
+
+
+        # print self.splitted_data["GK"]
+        self.splitted_data["DEF"] = filter(lambda x: x[2] == "def", [self.Y[i] for i in range(len(self.rows))])
+        self.splitted_data["MID"] = filter(lambda x: x[2] == "mid", [self.Y[i] for i in range(len(self.rows))])
+        self.splitted_data["ATT"] = filter(lambda x: x[2] == "att", [self.Y[i] for i in range(len(self.rows))])
+        self.training_set = filter(lambda x: x[2] == position.lower(), [self.training_set[i] for i in range(len(self.training_set))])
+        return self.training_set
+
+    def prepare_features(self, position, features_start_index=8):
+        #self.training_set = self.splitted_data[position]
+        self.training_set = self.rows
+        self.X = np.array([list(self.training_set[x][features_start_index:]) for x in range(len(self.training_set))])
+        self.Y = self.X
+
+    def run_pca(self):
         pca = PCA(n_components=3)
         pca.fit(self.X)
         self.pca_variance = pca.explained_variance_ratio_
         self.Y = pca.transform(self.X)
-        print self.rows[1]
 
-        ids = [self.rows[i][0] for i in range(len(self.rows))]
-        date = [self.rows[i][3] for i in range(len(self.rows))]
-        fixtures = [self.rows[i][4] for i in range(len(self.rows))]
-        #statistics = self.Y[i].tolist()
-        if_in_TOtW = 0
-        self.Y = [[ids[i]] + [date[i]] + [fixtures[i]] + self.Y[i].tolist() + [if_in_TOtW] for i in range(len(self.Y))]
-        #print self.Y
-        mylist = filter(lambda x : x[0] == 3965, self.Y)
-        #print mylist
+    def prepare_y(self):
+        range_training_set = range(len(self.training_set))
+        id_column, date_column, fixture_column = 3, 6, 7
+        ids = [self.training_set[i][id_column] for i in range_training_set]
+        date = [self.training_set[i][date_column] for i in range_training_set]
+        fixtures = [self.training_set[i][fixture_column] for i in range_training_set]
+        if_in_totw = 0
+        self.Y = [[ids[i]] + [date[i]] + [fixtures[i]] + self.Y[i].tolist() + [if_in_totw] for i in range(len(self.training_set))]
+
+    def update_all_players(self, year, position):
+        fixtures = range(1, 37)
+        for i in fixtures:
+            self.update_if_player_in_totw(year, i, position)
+        self.save_to_file('data_calculated{}{}'.format(str(year), position), self.Y)
+
+        print "marian"
+
+
+    def update_if_player_in_totw(self, year, fixture, position):
+        positions = self.handle_json(year, fixture)
+        # players = self.handle_json(year, fixture, position)
+        players = []
+        for position in positions[0]:
+            for player in positions[0][position]:
+                players.append(player)
+
+        for player in players:
+            id = self.find_player_id(player)
+            print player, id
+
+            matches = [match for match in self.find_element(id)]
+            candidates = self.prepare_candidates(matches)
+            print player, id, candidates
+            print player, id, matches
+            candidates = self.slice_by_fixture(candidates, fixture)
+            print player, id, candidates
+            candidates = self.slice_by_season(candidates, year)
+            print player, id, candidates
+            # print self.Y
+
+            self.Y[candidates[0][-1]][-1] = 1  # is in team of the week
+
+            print "candidate ostateczny: " + str(self.Y[candidates[0][-1]])
+            # print "candidate ostateczny self Y: " + str(self.Y[candidates[0][7]][6])
 
     def handle_json(self, year, fixture, filename='team_of_the_week.json'):
-        with open(filename) as data_file:
-            data = json.load(data_file)
-            #print data["data"]
-            #pprint(data[0]["data"][fixture-1]["fixture"])
-            #pprint(data[0]["data"][fixture-1]["players"])
+        with open(filename) as f:
+            json_data = json.load(f)
+        first_year = 2015
+        return json_data[year-first_year]["data"][fixture-1]["players"]
 
-        return data[year-2015]["data"][fixture-1]["players"]
+    def handle_json_by_position(self, year, fixture, position, filename='team_of_the_week.json'):
+        with open(filename) as f:
+            json_data = json.load(f)
+        first_year = 2015
+        return json_data[year-first_year]["data"][fixture-1]["players"][0][position]
 
     def find_player_id(self, name):
         #print [self.rows[i] for i in range(len(self.rows))]
-        player_data = filter(lambda x : x[1] == name, [self.rows[i] for i in range(len(self.rows))])
-        return player_data[0][0]
+        print name
+        print self.rows[0]
+        player_data = filter(lambda x: x[0] == name, [self.rows[i] for i in range(len(self.rows))])
+        return player_data[0][1]
 
-    def update_if_in_TOtw(self, year, fixture):
-        data = self.handle_json(year, fixture)
-        players = []
-        for position in data[0]:
-            for player in data[0][position]:
-                players.append(player)
-        print players
-        for player in players:
-            id = self.find_player_id(player)
-            matches = [match for match in self.find_element(id)]
-            candidates = self.prepare_candidates(matches)
-            candidates = self.slice_by_fixture(candidates, fixture)
-            candidates = self.slice_by_season(candidates, year)
-            #try:
-
-            self.Y[candidates[0][-1]][-1] = 1 # is in team of the week
-            #except IndexError:
-            #    pass
-            #continue
-            
-            print "candidate ostateczny: " + str(self.Y[candidates[0][7]])
-            #print "candidate ostateczny self Y: " + str(self.Y[candidates[0][7]][6])
-            
     def find_element(self, id):
-        for i, player in enumerate(self.Y):
+        for i, player in enumerate(self.rows):
             try:
                 j = player.index(id)
             except ValueError:
@@ -103,13 +159,7 @@ class DataAnalyzer(object):
         return filter(lambda x: x[2] == fixture, candidates)
 
     def slice_by_season(self, candidates, start_year):
-        return filter(lambda x : datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7) and datetime.strptime(x[1], '%Y-%m-%d') < datetime(start_year+1, 7, 7), candidates)
-
-    def update_all_players(self, year):
-        fixtures = range(36,37)
-        for i in fixtures:
-            self.update_if_in_TOtw(year, i)
-        self.save_to_file('data_calculated' + str(year), self.Y)
+        return filter(lambda x : datetime(start_year+1, 7, 7) > datetime.strptime(x[1], '%Y-%m-%d') > datetime(start_year, 7,7), candidates)
 
     def save_to_file(self, filename, content):
         filename = filename + ".csv"
@@ -118,7 +168,7 @@ class DataAnalyzer(object):
             #print content
             #print type(content)
             for i in content:
-                print i
+            #    print i
 
                 writer.writerow(i)
             #file.write(content)
@@ -127,33 +177,44 @@ class DataAnalyzer(object):
     #spamwriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
 
     def run_svm(self):
-        Xsvm = []
-        ysvm = []
-        for i in range(len(self.Y)):
-            if i < 100:
-                continue
-            Xsvm.append(self.Y[i][3:6])
-            print self.Y[i][3:6]
-            ysvm.append(self.Y[i][6])
+        print len(self.training_set)
+        #for i in range(len(self.training_set)):
+        #    print self.Y[i][-1]
+
+        #for i in range(len(self.training_set)):
+            #X.append(self.training_set[i][8:-1])
+            # print self.training_set[i][8:-1]
+            # print self.training_set[i][3:6]
+         #   ysvm.append(self.training_set[i][-1])
 
         #print Xsvm
         #print ysvm
+        xtrain, ytrain, xtest, ytest = self.split_data()
 
+        clf = svm.SVC(kernel='linear')
+        print clf.fit(xtrain, ytrain)
+        # print clf.score(xtest, ytest)
+        y_pred = clf.predict(xtest)
+        print confusion_matrix(ytest, y_pred)
 
-        clf = svm.SVC()
-        clf.fit(Xsvm,ysvm)
+    def split_data(self):
+        xtrain = []
+        ytrain = []
+        xtest = []
+        ytest = []
 
-        print clf.predict([[95.46998874785378,	-10.455099879722816,	8.249285784045766]])
-        print clf.predict([[-11.911608306775511,	-4.960642606125528,	-21.248186559307268]])
-        print clf.predict([[-84.96169891257794,	14.995920700196903,	16.34380187691025]])
-        print clf.predict([[-61.5396615043822,	-4.719625078226473,	0.9947794822283846]])
-        print clf.predict([[49.17837859606411,	33.93099009166503,	-3.2989638896094835]])
-        print clf.predict([[-36.088040844332426,	-16.437124809782212,	-23.30283250693931]])
-        print clf.predict([[23.071458306015284,	6.3895150724014504,	-15.641327844575892]])
-        print clf.predict([[0.5474392044500311,	19.583617357003405,	-13.070166080634563]])
-        print clf.predict([[125.79422002401283,	81.08243862949172,	-15.579239375631678]])
-        print clf.predict([[-58.92553677984468,	-5.709797335438783,	-19.555997730779442]])
-        print clf.predict([[134.87989156562023,	-51.14799314269806,	44.93611270473487]])
+        for j, i in enumerate(self.training_set):
+            # print j
+            if j % 4 != 0:
+                xtrain.append(i[8:-1])
+                ytrain.append(i[-1])
+            else:
+                xtest.append(i[8:-1])
+                ytest.append(i[-1])
+        print "here "
+        print [x for x in ytrain if x]
+        return xtrain, ytrain, xtest, ytest
+
 
 
 
@@ -161,18 +222,27 @@ class DataAnalyzer(object):
 if __name__ == "__main__":
     data = DataAnalyzer()
     data.fetch_data()
-    #print data.rows
-    data.run_PCA()
-    print "PCA variance for 3 components: {0}".format(data.pca_variance)
-    print "Sum of first 3 PCA components: {0}".format(sum(data.pca_variance))
+    # print data.rows
+    position = "GK"
+    data.prepare_features(position)
+    data.prepare_y()
+    # data.run_PCA()
+    # print "PCA variance for 3 components: {0}".format(data.pca_variance)
+    # print "Sum of first 3 PCA components: {0}".format(sum(data.pca_variance))
 
     #data.handle_json(2)
     #data.find_player_id('Ashley Fletcher')
     #print data.Y
     #data.slice_by_season(2015)
-	
-    data.update_all_players(2016)
-    data.run_svm()
+
+    data.update_all_players(2016, position)
+    data.split_data_by_position("att")
+    # print [x for x in data.splitted_data["GK"] if x[0] == 4378]
+    print [x[-1] for x in data.splitted_data["DEF"] if x[-1]]
+    print [x[-1] for x in data.splitted_data["MID"] if x[-1]]
+    print [x[-1] for x in data.splitted_data["ATT"] if x[-1]]
+
+    # data.run_svm()
     #print "plaers ids"
     #print data.find_player_id("Michael Keane")
     
