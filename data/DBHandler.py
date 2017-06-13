@@ -81,6 +81,14 @@ class DBHandler(object):
             self.conn.commit()
         cur.close()
 
+    def update_player_photo(self, url, player_id):
+        cur = self.conn.cursor()
+        cur.execute('''SELECT * FROM player WHERE player_id = ? AND photo IS NOT NULL''', (player_id,))
+        if cur.fetchone() is None:
+            cur.execute('''UPDATE player SET photo = ? WHERE player_id = ?''', (url, player_id))
+            self.conn.commit()
+        cur.close()
+
     def get_all_matches_ids(self):
         cur = self.conn.cursor()
         cur.execute('''SELECT DISTINCT match_id FROM player_statistics''')
