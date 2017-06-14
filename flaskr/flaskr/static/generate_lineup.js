@@ -1,5 +1,9 @@
+
+var url = window.location.pathname;
+var fixture = url.slice(1, url.length)
+
 $.ajax({
-  url: "http://127.0.0.1:5000/predicted_totw",
+  url: "http://127.0.0.1:5000/predicted_totw/" + fixture,
 })
 .done(function( data ) {
     var offence_no = data['ATT'].length;
