@@ -34,6 +34,7 @@ class CombinedAnalysis(object):
             index_maximum = 3
         self.players[position].sort(key=lambda x: float(x[index_maximum]), reverse=True)
         if position is "GK":
+            print self.players[position]
             self.final_squad[position] = [int(self.players[position][0][0])]
         else:
             self.players[position] = [i for i in self.players[position][:5]]
@@ -72,9 +73,9 @@ class CombinedAnalysis(object):
                 return position
 
 if __name__ == "__main__":
-    fixture_test = 30
+    fixture_test = 33
     year_test = 2016
-    data = CombinedAnalysis(fixture_test, year_test, "")
+    data = CombinedAnalysis(fixture_test, year_test, "lasso")
     positions = ["GK", "DEF", "MID", "ATT"]
     for position in positions:
         data.read_file(position)

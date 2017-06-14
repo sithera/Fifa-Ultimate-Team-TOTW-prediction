@@ -62,8 +62,11 @@ class Analysis(object):
         print results
         combined = []
         for i in results:
+            i = list(i)
+            i[1] = i[1].tolist()
             if method == "lasso":
                 i[1] = [i[1]]
+            combined.append(sum(i, []))
         self.save_to_file("combined{}{}{}".format(self.year, self.position, self.fixture), combined, method)
 
     def extract_data(self):
@@ -111,7 +114,7 @@ class Analysis(object):
                 self.train_data.append(i)
 
 if __name__ == "__main__":
-    fixture_test = 30
+    fixture_test = 33
     year_test = 2016
     positions = ["GK", "DEF", "MID", "ATT"]
 
