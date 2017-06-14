@@ -16,6 +16,12 @@ def predicted_totw(fixture):
     with open(file) as json_data:
         return jsonify(json.load(json_data))
 
+@app.route("/predicted_totw/lasso/<fixture>")
+def predicted_totw_lasso(fixture):
+    file = 'team_of_the_week{}lasso.json'.format(fixture)
+    with open(file) as json_data:
+        return jsonify(json.load(json_data))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

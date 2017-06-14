@@ -2,10 +2,15 @@
 <html xmlns:background-image="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>FIFA prediction</title>
     <link href="static/my_css.css" rel="stylesheet">
     <style type="text/css">
-        body
+        .container
+        {
+        background-image: url(/static/pitch.png);
+        background-repeat: no-repeat;
+        }
+        .container2
         {
         background-image: url(/static/pitch.png);
         background-repeat: no-repeat;
@@ -14,11 +19,21 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 </head>
 <body>
+<h1>FIFA Team of the Week Prediction</h1>
+<h2 class="fixture"></h2>
 <div class="container">
     <div class="offence"></div>
     <div class="midfield"></div>
     <div class="defence"></div>
     <div class="goalkeep"></div>
+    <div class="description">Predicted by SVM</div>
+</div>
+<div class="container2" >
+    <div class="offence2"></div>
+    <div class="midfield2"></div>
+    <div class="defence2"></div>
+    <div class="goalkeep2"></div>
+    <div class="description">Predicted by LASSO</div>
 </div>
 <script type="text/javascript" src="static/generate_lineup.js"></script>
 <!--<div id="a" class="my-face"><img src="http://i.imgur.com/PwMTdjP.png"/></div>-->

@@ -6,7 +6,7 @@ import json
 
 class CombinedAnalysis(object):
 
-    def __init__(self, fixture, year):
+    def __init__(self, fixture, year, method):
         self.fixture = fixture
         self.year = year
         self.players = {
@@ -16,17 +16,23 @@ class CombinedAnalysis(object):
             "ATT": []
         }
         self.final_squad = self.players.copy()
+        self.method = method
 
     def read_file(self, position):
-        filename = "combined{}{}{}.csv".format(self.year, position, self.fixture)
+        filename = "combined{}{}{}{}.csv".format(self.year, position, self.fixture, self.method)
         with open(filename, 'rb') as f:
             reader = csv.reader(f, delimiter=',')
             for row in reader:
+                if self.method == "lasso":
+                    print row
                 row = [float(i) if not re.match(r'(\d+-\d+-\d+)', i) else i for i in row]
                 self.players[position].append(row)
 
     def get_best_players(self, position):
-        self.players[position].sort(key=lambda x: float(x[4]), reverse=True)
+        index_maximum = 4
+        if self.method == "lasso":
+            index_maximum = 3
+        self.players[position].sort(key=lambda x: float(x[index_maximum]), reverse=True)
         if position is "GK":
             self.final_squad[position] = [int(self.players[position][0][0])]
         else:
@@ -38,7 +44,7 @@ class CombinedAnalysis(object):
 
     def prepare_final_squad(self):
         all_together = self.players["DEF"][3:] + self.players["MID"][3:] + self.players["ATT"][1:]
-        all_together = all_together[:2]
+        all_together = all_together[:3]
         for player in all_together:
             position = self.find_position(player)
             self.final_squad[position].append(player)
@@ -55,7 +61,8 @@ class CombinedAnalysis(object):
             self.final_squad[position] = [dbhandler.get_player_data_by_id(x) for x in self.final_squad[position]]
 
     def save_to_json(self, fixture):
-        with open('../flaskr/flaskr/team_of_the_week{}.json'.format(fixture), 'w') as outfile:
+        print self.method
+        with open('../flaskr/flaskr/team_of_the_week{}{}.json'.format(fixture, self.method), 'w') as outfile:
             json.dump(self.final_squad, outfile)
 
     def find_position(self, record):
@@ -67,7 +74,7 @@ class CombinedAnalysis(object):
 if __name__ == "__main__":
     fixture_test = 30
     year_test = 2016
-    data = CombinedAnalysis(fixture_test, year_test)
+    data = CombinedAnalysis(fixture_test, year_test, "")
     positions = ["GK", "DEF", "MID", "ATT"]
     for position in positions:
         data.read_file(position)

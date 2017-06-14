@@ -25,6 +25,31 @@ $.ajax({
     fillData('goalkeep', data['GK'][0]);
 });
 
+$.ajax({
+  url: "http://127.0.0.1:5000/predicted_totw/lasso/" + fixture,
+})
+.done(function( data ) {
+    var offence_no = data['ATT'].length;
+    var midfield_no = data['MID'].length;
+    var def_no = data['DEF'].length;
+
+    for (i=0; i<offence_no; i++){
+        fillData('offence2', data['ATT'][i]);
+    }
+
+    for (i=0; i<midfield_no; i++){
+        fillData('midfield2', data['MID'][i]);
+    }
+
+    for (i=0; i<def_no; i++){
+        fillData('defence2', data['DEF'][i]);
+    }
+
+    fillData('goalkeep2', data['GK'][0]);
+});
+
+
+
 function fillData(position, player){
     var def = document.getElementsByClassName(position);
     var defence = def[0];

@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 from imblearn.over_sampling import RandomOverSampler, SMOTE, ADASYN
 from sklearn import linear_model
+import numpy as np
 
 
 class Analysis(object):
@@ -47,21 +48,23 @@ class Analysis(object):
         clf.fit(self.X_train, self.y_train)
         print "fit done"
         y_pred = clf.predict(self.X_test)
-        self.save_to_files(y_pred)
+        self.save_to_files(y_pred, "lasso")
 
-    def save_to_files(self, y_pred):
+    def save_to_files(self, y_pred, method=""):
         players = []
         for i in range(len(self.test_data)):
             players.append(self.test_data[i][:3])
-        self.save_to_file("results{}{}{}".format(self.year, self.position, self.fixture), players, "lasso")
-        self.save_to_file("predicted{}{}{}".format(self.year, self.position, self.fixture), y_pred, "lasso")
+        print players
+        print y_pred
+        self.save_to_file("results{}{}{}".format(self.year, self.position, self.fixture), players, method)
+        self.save_to_file("predicted{}{}{}".format(self.year, self.position, self.fixture), y_pred, method)
         results = zip(players, y_pred)
+        print results
         combined = []
         for i in results:
-            i = list(i)
-            i[1] = i[1].tolist()
-            combined.append(sum(i, []))
-        self.save_to_file("combined{}{}{}".format(self.year, self.position, self.fixture), combined, "lasso")
+            if method == "lasso":
+                i[1] = [i[1]]
+        self.save_to_file("combined{}{}{}".format(self.year, self.position, self.fixture), combined, method)
 
     def extract_data(self):
         self.X_train = [self.train_data[i][3:-1] for i in range(len(self.train_data))]
@@ -77,6 +80,8 @@ class Analysis(object):
         with open(filename, 'wb') as f:
             writer = csv.writer(f)
             for i in content:
+                if type(i) == np.float64:
+                    i = [i]
                 writer.writerow(i)
 
     def oversample(self):
