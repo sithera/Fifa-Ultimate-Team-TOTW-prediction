@@ -65,7 +65,6 @@ class DataPreparation(object):
             candidates = self.slice_by_season(candidates, year)
             self.Y[candidates[0][-1]][-1] = 1  # is in team of the week
 
-
     def handle_json(self, year, fixture, filename='team_of_the_week.json'):
         with open(filename) as f:
             json_data = json.load(f)
@@ -106,10 +105,11 @@ class DataPreparation(object):
                 writer.writerow(i)
 
     def split_data_by_position(self, year):
-        positions = ["GK", "DEF" "MID", "ATT"]
+        positions = ["GK", "DEF", "MID", "ATT"]
         for position in positions:
-            self.splitted_data[position] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][0] is position.lower()]
+            self.splitted_data[position] = [self.Y[i] for i in range(len(self.Y)) if self.rows[i][0].encode('utf8') == position.lower()]
             self.save_to_file('data_calculated{}{}'.format(str(year), position), self.splitted_data[position])
+
     
 if __name__ == "__main__":
     data = DataPreparation()

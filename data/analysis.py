@@ -3,6 +3,7 @@ from sklearn import svm
 import csv
 from datetime import datetime
 from imblearn.over_sampling import RandomOverSampler, SMOTE, ADASYN
+from sklearn import linear_model
 
 
 class Analysis(object):
@@ -40,19 +41,27 @@ class Analysis(object):
         y_pred = clf.predict_proba(self.X_test)
         self.save_to_files(y_pred)
 
+    def run_lasso(self):
+        clf = linear_model.Lasso(alpha=0.1)
+        print "classification done"
+        clf.fit(self.X_train, self.y_train)
+        print "fit done"
+        y_pred = clf.predict(self.X_test)
+        self.save_to_files(y_pred)
+
     def save_to_files(self, y_pred):
         players = []
         for i in range(len(self.test_data)):
             players.append(self.test_data[i][:3])
-        self.save_to_file("results{}{}{}".format(self.year, self.position, self.fixture), players)
-        self.save_to_file("predicted{}{}{}".format(self.year, self.position, self.fixture), y_pred)
+        self.save_to_file("results{}{}{}".format(self.year, self.position, self.fixture), players, "lasso")
+        self.save_to_file("predicted{}{}{}".format(self.year, self.position, self.fixture), y_pred, "lasso")
         results = zip(players, y_pred)
         combined = []
         for i in results:
             i = list(i)
             i[1] = i[1].tolist()
             combined.append(sum(i, []))
-        self.save_to_file("combined{}{}{}".format(self.year, self.position, self.fixture), combined)
+        self.save_to_file("combined{}{}{}".format(self.year, self.position, self.fixture), combined, "lasso")
 
     def extract_data(self):
         self.X_train = [self.train_data[i][3:-1] for i in range(len(self.train_data))]
@@ -60,8 +69,11 @@ class Analysis(object):
         self.X_test = [self.test_data[i][3:-1] for i in range(len(self.test_data))]
         self.y_test = [self.test_data[i][-1] for i in range(len(self.test_data))]
 
-    def save_to_file(self, filename, content):
-        filename = filename + ".csv"
+    def save_to_file(self, filename, content, method=""):
+        if method:
+            filename = filename + method + ".csv"
+        else:
+            filename = filename + ".csv"
         with open(filename, 'wb') as f:
             writer = csv.writer(f)
             for i in content:
@@ -104,6 +116,6 @@ if __name__ == "__main__":
         data.slice_sets()
         data.extract_data()
         data.oversample()
-        data.run_svm()
+        data.run_lasso()
         print "done {}".format(position)
 
