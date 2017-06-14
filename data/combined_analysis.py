@@ -32,12 +32,12 @@ class CombinedAnalysis(object):
         else:
             self.players[position] = [i for i in self.players[position][:5]]
             if position is "ATT":
-                self.final_squad[position] = [i for i in self.players[position][:2]]
+                self.final_squad[position] = [i for i in self.players[position][:1]]
             else:
                 self.final_squad[position] = [i for i in self.players[position][:3]]
 
     def prepare_final_squad(self):
-        all_together = self.players["DEF"][3:] + self.players["MID"][3:] + self.players["ATT"][2:]
+        all_together = self.players["DEF"][3:] + self.players["MID"][3:] + self.players["ATT"][1:]
         all_together = all_together[:2]
         for player in all_together:
             position = self.find_position(player)
