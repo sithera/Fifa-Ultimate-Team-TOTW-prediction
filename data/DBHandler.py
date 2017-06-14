@@ -95,3 +95,21 @@ class DBHandler(object):
         result = cur.fetchall()
         cur.close()
         return result
+
+    def get_player_data_by_id(self, player_id):
+        cur = self.conn.cursor()
+        cur.execute('''SELECT player_name, photo FROM player WHERE player_id = ?''', (player_id,))
+        result = cur.fetchone()
+        cur.close()
+        return result
+
+    def get_all_players_with_positions_and_statistics(self, table1='player', table2='player_statistics'):
+            cur = self.conn.cursor()
+            cur.execute("SELECT {0}.position, {1}.* FROM {0} JOIN {1} USING(player_id);".format(str(table1), str(table2)))
+            rows = []
+            while True:
+                row = cur.fetchone()
+                if row is None:
+                    break
+                rows.append(row)
+            return rows
