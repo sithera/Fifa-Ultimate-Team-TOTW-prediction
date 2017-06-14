@@ -41,7 +41,7 @@ def assign_position_to_each_player_in_database():
         position_feeder.populate_players_positions(match[0])
 
 
-def add_photo_to_players():
+def get_players_photos():
     for player in handler.get_all_players():
         id = player[1]
         name = player[0].split(" ")
